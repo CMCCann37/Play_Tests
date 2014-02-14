@@ -20,5 +20,14 @@ public class ModelsTest extends WithApplication {
         assertEquals("Bob", bob.name);
     }
 
+    @Test
+    public void tryAuthenticateUser() {
+        new User("bob@gmail.com", "Bob", "secret").save();
+
+        assertNotNull(User.authenticate("bob@gmail.com", "secret"));
+        assertNull(User.authenticate("bob@gmail.com", "badpassword"));
+        assertNull(User.authenticate("tom@gmail.com", "secret"));
+    }
+
 
 }
